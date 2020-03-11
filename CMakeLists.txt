@@ -125,6 +125,8 @@ option(LLGL_BUILD_STATIC_LIB "Build LLGL as static lib (Only allows a single ren
 option(LLGL_BUILD_TESTS "Include test projects" OFF)
 option(LLGL_BUILD_EXAMPLES "Include example projects" OFF)
 
+#add_subdirectory(external/GaussianLib)
+
 if(LLGL_MOBILE_PLATFORM)
     option(LLGL_BUILD_RENDERER_OPENGLES3 "Include OpenGLES 3 renderer project" ON)
 else()
@@ -479,6 +481,8 @@ endif()
 
 # === Include directories ===
 
+#set(GaussLib_INCLUDE_DIR ${GaussianLib_SOURCE_DIR}/include)
+
 include_directories("${PROJECT_INCLUDE_DIR}")
 
 include(cmake/FindGaussianLib.cmake)
@@ -788,7 +792,10 @@ if(GaussLib_INCLUDE_DIR)
     endif()
 
     # Example Projects
+
     if(LLGL_BUILD_EXAMPLES)
+        message("${GaussLib_INCLUDE_DIR}")
+
         add_library(ExampleBase STATIC ${FilesExampleBase})
         set_target_properties(ExampleBase PROPERTIES LINKER_LANGUAGE CXX DEBUG_POSTFIX "D")
         target_link_libraries(ExampleBase "${LLGL_DEPENDENCIES}")
